@@ -50,7 +50,7 @@ PUT countcombo + " Combo(s)"
 PUT "----------------------"
 PUT "Subtotal " + subtotal
 PUT "Tax      "  + tax
-PUT "----------------------"
+PUT "----------------------" 
 PUT "Grand Total "+ grandtotal
 
 PUT "Would you like to do another order (Y/N)"
