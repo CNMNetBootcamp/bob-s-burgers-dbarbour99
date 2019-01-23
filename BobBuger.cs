@@ -16,22 +16,55 @@ namespace BobBurger
       double drinkprice = 0.99;
       double comboprice = 5.00;
       double taxpercent = 0.06875;
-      double userchoice = string.empty;
+      double userchoice = 0;
       string question = "Y";
       string tempnum = string.Empty;
-      bool isnumeric = true;
+      bool isNumeric = true;
 
       double subtotal = 0;
       double tax = 0;
       double grandtotal = 0;
+      do
+      {
+        Menu(ref countburger, ref countfries, ref countdrinks, ref countcombo, ref userchoice, ref tempnum, ref isNumeric);
 
+        CalcTotals(countburger, countfries, countdrinks, countcombo, burgerprice, friesprice, drinkprice, comboprice, taxpercent, out subtotal, out tax, out grandtotal);
+
+        DisplayResults(countburger, countfries, countdrinks, countcombo, subtotal, tax, grandtotal);//
+
+        Console.WriteLine("Would you like to do another order (Y/N)");
+        question = Console.ReadLine();
+
+        ResetCounts(out countburger, out countfries, out countdrinks, out countcombo, out userchoice);
+
+      } while (question == "Y");
+    }
+
+    private static void ResetCounts(out int countburger, out int countfries, out int countdrinks, out int countcombo, out double userchoice)
+    {
+      userchoice = 0;
+      countburger = 0;
+      countfries = 0;
+      countdrinks = 0;
+      countcombo = 0;
+    }
+
+    private static void CalcTotals(int countburger, int countfries, int countdrinks, int countcombo, double burgerprice, double friesprice, double drinkprice, double comboprice, double taxpercent, out double subtotal, out double tax, out double grandtotal)
+    {
+      subtotal = (burgerprice * countburger) + (friesprice * countfries) + (drinkprice * countdrinks) + (comboprice * countcombo);
+      tax = subtotal * taxpercent;
+      grandtotal = subtotal + tax;
+    }
+
+    private static void Menu(ref int countburger, ref int countfries, ref int countdrinks, ref int countcombo, ref double userchoice, ref string tempnum, ref bool isNumeric)
+    {
       do while (userchoice < 5)
         {
           do
           {
-            //TODO: Refactor the menu into its own method
             Console.WriteLine("Select the item you want");
             Console.WriteLine("1) Burger");
+            Console.WriteLine("2) Fries");
             Console.WriteLine("3) Drink");
             Console.WriteLine("4) Combo");
             Console.WriteLine("5) Checkout");
@@ -46,36 +79,30 @@ namespace BobBurger
           } while (isNumeric == false || double.Parse(tempnum) <= 0 || double.Parse(tempnum) > 5);
           userchoice = double.Parse(tempnum);
 
-          if (userchoice = 1)
+          if (userchoice == 1)
             countburger = countburger + 1;
-          else if (userchoice = 2)
+          else if (userchoice == 2)
             countfries = countfries + 1;
-          else if (userchoice = 3)
+          else if (userchoice == 3)
             countdrinks = countdrinks + 1;
-          else if (userchoice = 4)
+          else if (userchoice == 4)
             countcombo = countcombo + 1;
-         
-        } while (userchoice != 5);
-//TODO: refactor this into its own method
-      subtotal = (burgerprice * countburer) + (friesprice * countfries) + (drinkprice * countdrink) + (comboprice * countcombo);
-      tax = subtotal * taxpercent;
-      grandtotal = subtotal + tax;
 
+        } while (userchoice != 5);
+    }
+
+    private static void DisplayResults(int countburger, int countfries, int countdrinks, int countcombo, double subtotal, double tax, double grandtotal)
+    {
       Console.WriteLine("You have ordered:");
-      Console.WriteLine( countburger +" Buger(s)");
+      Console.WriteLine(countburger + " Buger(s)");
       Console.WriteLine(countfries + " Fries");
-      Console.WriteLine(countdrink + " Drink(s)");
+      Console.WriteLine(countdrinks + " Drink(s)");
       Console.WriteLine(countcombo + " Combo(s)");
       Console.WriteLine("----------------------");
       Console.WriteLine("Subtotal " + subtotal);
-      Console.WriteLine ("Tax      " + tax);
-      Console.WriteLine ("----------------------");
-      Console.WriteLine ("Grand Total " + grandtotal);
-//TODO: this does not seem to be compelte, I am not seeing the loop here
-      Console.WriteLine("Would you like to do another order (Y/N)");
-      Console.ReadLine();
-
+      Console.WriteLine("Tax      " + tax);
+      Console.WriteLine("----------------------");
+      Console.WriteLine("Grand Total " + grandtotal);
     }
-
   }
 }
