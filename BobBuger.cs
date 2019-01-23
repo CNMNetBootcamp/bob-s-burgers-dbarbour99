@@ -29,6 +29,7 @@ namespace BobBurger
         {
           do
           {
+            //TODO: Refactor the menu into its own method
             Console.WriteLine("Select the item you want");
             Console.WriteLine("1) Burger");
             Console.WriteLine("3) Drink");
@@ -55,7 +56,7 @@ namespace BobBurger
             countcombo = countcombo + 1;
          
         } while (userchoice != 5);
-
+//TODO: refactor this into its own method
       subtotal = (burgerprice * countburer) + (friesprice * countfries) + (drinkprice * countdrink) + (comboprice * countcombo);
       tax = subtotal * taxpercent;
       grandtotal = subtotal + tax;
@@ -70,7 +71,7 @@ namespace BobBurger
       Console.WriteLine ("Tax      " + tax);
       Console.WriteLine ("----------------------");
       Console.WriteLine ("Grand Total " + grandtotal);
-
+//TODO: this does not seem to be compelte, I am not seeing the loop here
       Console.WriteLine("Would you like to do another order (Y/N)");
       Console.ReadLine();
 
